@@ -55,6 +55,14 @@ class DeviceController extends AbstractController
         foreach ($device->getHistories()->getValues() as $deviceHistory) {
             $timestamp[] = $deviceHistory->getCreatedAt()->format('d/m/Y - H:i');
         }
+        $min = [];
+        for ($i = 0; $i <= count($values); $i++) {
+            $min[] = $device->getType()->getBounds()[0];
+        }
+        $max = [];
+        for ($i = 0; $i <= count($values); $i++) {
+            $max[] = $device->getType()->getBounds()[1];
+        }
 
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
@@ -67,13 +75,14 @@ class DeviceController extends AbstractController
                     'label' => 'min',
                     'backgroundColor' => 'rgb(245, 40, 145)',
                     'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [$device->getType()->getBounds()[0]],
+                    'data' => $min,
                 ],
                 [
                     'label' => 'max',
-                    'backgroundColor' => 'rgb(245, 40, 145)',
+                    'backgroundColor' => 'rgba(245, 40, 145, 0.27)',
                     'borderColor' => 'rgb(255, 99, 132)',
-                    'data' => [$device->getType()->getBounds()[1]],
+                    'fill'=> '-1',
+                    'data' => $max,
                 ],
                 [
                     'label' => 'actual',
