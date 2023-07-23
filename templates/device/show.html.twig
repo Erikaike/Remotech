@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Device{% endblock %}
+
+{% block body %}
+    <h1>Device</h1>
+{{ render_chart(chart) }}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ device.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ device.name }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ device.status }}</td>
+            </tr>
+            <tr>
+                <th>Picture</th>
+                <td>{{ device.picture }}</td>
+            </tr>
+            <tr>
+                <th>State</th>
+                <td>{{ device.state }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('device_index') }}">back to list</a>
+
+    <a href="{{ path('device_edit', {'id': device.id}) }}">edit</a>
+
+    {{ include('device/_delete_form.html.twig') }}
+{% endblock %}

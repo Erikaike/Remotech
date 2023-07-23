@@ -16,9 +16,18 @@
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
             <script src="/build/runtime.js" defer></script>
             <script src="/build/app.js" defer></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         {% endblock %}
     </head>
     <body>
+        {% include "_navbar.html.twig" %}
+		{% for category, messages in app.flashes %}
+			{% for message in messages %}
+				<div class="alert alert-{{ category }}">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endfor %}
         {% block body %}
         {% endblock %}
     </body>
