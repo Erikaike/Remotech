@@ -3,39 +3,33 @@
 {% block title %}Device index{% endblock %}
 
 {% block body %}
-    <h1>Device index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Picture</th>
-                <th>State</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for device in devices %}
-            <tr>
-                <td>{{ device.id }}</td>
-                <td>{{ device.name }}</td>
-                <td>{{ device.status }}</td>
-                <td>{{ device.picture }}</td>
-                <td>{{ device.state }}</td>
-                <td>
-                    <a href="{{ path('device_show', {'id': device.id}) }}">show</a>
-                    <a href="{{ path('device_edit', {'id': device.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('device_new') }}">Create new</a>
+    <h1>All my devices</h1>
+    <div class="container">
+    <div class="row">
+            {% for onedevice in devices %}
+            <a class="list-unstyled text-decoration-none d-flex flex-wrap-wrap" href="{{ path('device_show', {'id': onedevice.id}) }}">
+                <div class="card w-25 p-3">
+                    <h3 class="card-header">{{ onedevice.type.name }}</h3>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ onedevice.name }}</h5>
+                    </div>
+                    {% if onedevice.picture is not null %}
+                    <img src="{{ asset(onedevice.picture) }}" alt="devicePic">
+                    {% endif %}
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">State:
+                            {# {% if onedevice.state == constant('App\\Entity\\Device::DEVICE_STATE_OK') %} #}
+                            <td><span class="badge bg-success">{{ onedevice.state }}</span></td>
+                            {# {% else %}
+                            <span class="badge bg-danger">{{ onedevice.state }}</span>
+                            {% endif %} #}
+                        </li>
+                        <li class="list-group-item">Last calculated value :</li>
+                    </ul>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    <a href="{{ path('device_new') }}">Add a new device</a>
 {% endblock %}

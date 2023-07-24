@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Device{% endblock %}
+{% block title %}Remotech - Device Stats - {{ device.name }} !{% endblock %}
 
 {% block body %}
-    <h1>Device</h1>
+    <h1>{{ device.name }}'s metrics</h1>
 {{ render_chart(chart) }}
     <table class="table">
         <tbody>

@@ -93,14 +93,26 @@ class DeviceController extends AbstractController
             ],
         ]);
 
-        $chart->setOptions([
-            'scales' => [
-                'y' => [
-                    'suggestedMin' => 0,
-                    'suggestedMax' => 100,
+        if ($device->getType()->getName() == 'Thermometer') {
+            $chart->setOptions([
+                'scales' => [
+                    'y' => [
+                        'suggestedMin' => 0,
+                        'suggestedMax' => 50,
+                    ],
                 ],
-            ],
-        ]);
+            ]);
+        } else {
+            $chart->setOptions([
+                'scales' => [
+                    'y' => [
+                        'suggestedMin' => 0,
+                        'suggestedMax' => 100,
+                    ],
+                ],
+            ]);
+        }
+        
         
         return $this->render('device/show.html.twig', [
             'device' => $device,

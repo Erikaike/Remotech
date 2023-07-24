@@ -21,6 +21,15 @@ class DeviceRepository extends ServiceEntityRepository
         parent::__construct($registry, Device::class);
     }
 
+    public function countAllDevices()
+    {
+        $queryBuilder = $this->createQueryBuilder('d')
+            ->select('COUNT(d)')
+            ->getQuery();
+    
+        return $queryBuilder->getSingleScalarResult();
+    }
+
 //    /**
 //     * @return Device[] Returns an array of Device objects
 //     */

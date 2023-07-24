@@ -1,6 +1,35 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Remotech - homepage!{% endblock %}
 
 {% block body %}
+<div class="mt-4 row">
+  <a class="list-unstyled text-decoration-none col" href="{{ path('device_index') }}">
+    <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+      <div class="card-header">Welcome</div>
+      <div class="card-body">
+        <h4 class="card-title">{{ deviceCount }} Devices</h4>
+        <p class="card-text">Check my devices, remove or add a new one</p>
+      </div>
+    </div>
+  </a>
+  <a class="list-unstyled text-decoration-none col" href="#">
+    <div class="card text-white bg-secondary mb-3" style="max-width: 20rem;">
+      <div class="card-header">Back</div>
+      <div class="card-body">
+        <h4 class="card-title"> 0 Alerts</h4>
+        <p class="card-text">Check my alerts history and status</p>
+      </div>
+    </div>
+  </a>
+  <div class="col">
+    <div class="card text-white bg-success mb-3" style="max-width: 20rem;">
+      <div class="card-header"> Eri 😊 </div>
+      <div class="card-body">
+        <h4 class="card-title">It is {{ now|format_datetime('full', locale='en') }}</h4>
+        <p class="card-text">Happy to see you again</p>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}

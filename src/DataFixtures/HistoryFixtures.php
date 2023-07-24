@@ -8,9 +8,15 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Faker\Factory;
+use App\Service\GetCurrentWeather;
 
 class HistoryFixtures extends Fixture implements DependentFixtureInterface
 {
+    public function __construct(private GetCurrentWeather $weather)
+    {
+        $this->weather = $weather;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $faker = Factory::create();
@@ -22,14 +28,18 @@ class HistoryFixtures extends Fixture implements DependentFixtureInterface
 
                 $history->setDevice($device);
                 $history->setCreatedAt($faker->dateTimeThisYear());
-                $history->setValue(rand(0, 10));
-
+                if ($deviceFixture['type'] == "Thermometer") {
+                    $history->setValue($this->weather->getWeather());
+                } else {
+                    $history->setValue(rand(0, 10));
+                }
                 $manager->persist($history);
             }
+        }
 
         $manager->flush();
-        }
     }
+
     public function getDependencies()
     {
         return [
